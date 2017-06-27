@@ -1,2 +1,4 @@
-daniel/
+daniel/ignore
+*.pptx
+*.mat
 ResultTables/

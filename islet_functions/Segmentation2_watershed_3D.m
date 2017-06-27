@@ -25,27 +25,27 @@ function labelled_cyto = Segmentation2_watershed_3D(cyto, cyto_smooth, seeds)
   labelled_cyto(labelled_cyto==-1)=0; % remove object which is the background
   % figure('name','labelled_cyto', 'NumberTitle','off');imshow3D(labelled_cyto,[])
 
-  %% LABEL BY SIZE (for debugging only)
-  % cells = regionprops(labelled_cyto);
-  % sizes = [cells.Area];
-  % labelled_by_size = zeros(size(labelled_cyto));
-  % for cell_index=1:max(labelled_cyto(:))
-  %   labelled_by_size(labelled_cyto==cell_index)=sizes(cell_index);
-  % end
-  % figure('name','labelled_by_size','NumberTitle', 'off');imshow3D(labelled_by_size,[])
+  % LABEL BY SIZE (for debugging only)
+  cells = regionprops(labelled_cyto);
+  sizes = [cells.Area];
+  labelled_by_size = zeros(size(labelled_cyto));
+  for cell_index=1:max(labelled_cyto(:))
+    labelled_by_size(labelled_cyto==cell_index)=sizes(cell_index);
+  end
+  figure('name','labelled_by_size','NumberTitle', 'off');imshow3D(labelled_by_size,[])
  
-  % % DEBUG (3D rgb overlay)
-  % boundries_rgb = zeros(size(cyto, 1), size(cyto, 2), size(cyto, 3), 3);
-  % for i = 1:size(cyto, 3)
-  %   labelled_by_size_color_fix=labelled_by_size(:,:,i);
-  %   labelled_by_size_color_fix(1)=min(sizes);
-  %   labelled_by_size_color_fix(2)=10000;
-  %   boundries_rgb(:,:,i,:) = label2rgb(labelled_by_size_color_fix,'jet', 'k'); 
-  % end
-  % cyto_rgb = cat(4, cyto, cyto, cyto);
-  % seed_rgb = cat(4, seeds, zeros(size(seeds)), zeros(size(seeds)));
-  % overlay_cyto = uint8(seed_rgb*200) ...           % seeds
-  %              + uint8(boundries_rgb./4)  ...  % segmented boundries
-  %              + uint8(cyto_rgb*200);              % original cyto
-  % figure;imshow3Dfull(overlay_cyto,[]);
+  % DEBUG (3D rgb overlay)
+  boundries_rgb = zeros(size(cyto, 1), size(cyto, 2), size(cyto, 3), 3);
+  for i = 1:size(cyto, 3)
+    labelled_by_size_color_fix=labelled_by_size(:,:,i);
+    labelled_by_size_color_fix(1)=min(sizes);
+    labelled_by_size_color_fix(2)=10000;
+    boundries_rgb(:,:,i,:) = label2rgb(labelled_by_size_color_fix,'jet', 'k'); 
+  end
+  cyto_rgb = cat(4, cyto, cyto, cyto);
+  seed_rgb = cat(4, seeds, zeros(size(seeds)), zeros(size(seeds)));
+  overlay_cyto = ... % uint8(seed_rgb*200) ...           % seeds
+               + uint8(boundries_rgb./4)  ...  % segmented boundries
+               + uint8(cyto_rgb*200);              % original cyto
+  figure;imshow3Dfull(overlay_cyto,[]);
 end
