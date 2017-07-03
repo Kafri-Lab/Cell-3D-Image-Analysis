@@ -115,11 +115,12 @@ function newResults = NewMeasurements(cyto, nuc, reporter, labelled_cyto, folder
   newResults.Stack = stack_name';
 
   % EXPERIMANTAL CLASS (control, torin, or torin wash)
-  if or(contains(char(folder),'\ctl'),contains(char(folder),'\Control'))
+  if or(strfind(char(folder),'\ctl'), strfind(char(folder),'\Control'))
+  if strfind(char(folder), '2nd image set')
     experimental_class = 'Control'
-  elseif contains(char(folder),'\Torin_wash')
+  elseif strfind(char(folder),'\Torin_wash')
     experimental_class = 'Wash'
-  elseif contains(char(folder),'\Torin')
+  elseif strfind(char(folder),'\Torin')
     experimental_class = 'Torin'
   else
     error('Error: did not recognized folder: %s', folder)
