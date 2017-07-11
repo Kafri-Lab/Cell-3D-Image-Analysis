@@ -1,3 +1,5 @@
+% Needed variables: cyto, cyto_norm
+
 addpath 'islet_functions'
 addpath 'islet_functions\export_fig'
 
@@ -20,8 +22,6 @@ set(gca,'xtick','','ytick','','ztick','')
 set(gca,'color','k')
 set(gcf,'color','k')
 box on
-
-  %saveas(gcf,['../public/img/Gray.png'])
 
 % make slices appear 1 by 1
 for n=1:length(slice_figures) 

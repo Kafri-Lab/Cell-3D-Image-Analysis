@@ -1,3 +1,5 @@
+% Needed variables: labelled_cyto
+
 addpath 'islet_functions'
 addpath 'islet_functions\export_fig'
 
