@@ -77,13 +77,13 @@ for f=1:length(folders)
   zmin = ceil(boundingbox(3));
   zmax = ceil(boundingbox(3)) + ceil(boundingbox(6)) - 1;
   cyto=cyto(xmin:xmax,ymin:ymax,zmin:zmax); % crop
-  % figure('name','cyto_cropped','NumberTitle', 'off'); imshow3D(cyto,[]);
+  % figure('name','cyto_cropped','NumberTitle', 'off'); imshow3Dfull(cyto,[]);
   %% CROP NUC
   nuc=nuc(xmin:xmax,ymin:ymax,zmin:zmax); % crop;
-  % figure('name','nuc_cropped','NumberTitle', 'off'); imshow3D(nuc,[]);
+  % figure('name','nuc_cropped','NumberTitle', 'off'); imshow3Dfull(nuc,[]);
   %% CROP INSULIN
   insulin=insulin(xmin:xmax,ymin:ymax,zmin:zmax); % crop
-  % figure('name','insulin_cropped','NumberTitle', 'off'); imshow3D(insulin,[]);
+  % figure('name','insulin_cropped','NumberTitle', 'off'); imshow3Dfull(insulin,[]);
 
   nuc1 = nuc(:,:,2); % first
   nuc2 = nuc(:,:,floor(size(nuc,3)/2)); % middle

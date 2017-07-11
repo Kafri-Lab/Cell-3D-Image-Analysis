@@ -5,7 +5,7 @@ cells_bysize = zeros(size(labelled_cyto));
 for cell_index=1:max(labelled_cyto(:))
   cells_bysize(labelled_cyto==cell_index)=sizes(cell_index);
 end
-figure('name','cells_bysize','NumberTitle', 'off');imshow3D(cells_bysize,[])
+figure('name','cells_bysize','NumberTitle', 'off');imshow3Dfull(cells_bysize,[])
 [sorted_sizes,sorted_cell_indexes] = sort(sizes); % used for visualizing size
 
 

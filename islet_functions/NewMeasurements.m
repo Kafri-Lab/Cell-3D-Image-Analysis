@@ -42,7 +42,7 @@ function newResults = NewMeasurements(cyto, nuc, reporter, labelled_cyto, folder
     end
     labelled_by_solidity(:,:,i) = labelled_slice;
   end
-  % figure('name','labelled_by_solidity','NumberTitle', 'off');imshow3D(labelled_by_solidity,[])
+  % figure('name','labelled_by_solidity','NumberTitle', 'off');imshow3Dfull(labelled_by_solidity,[])
   mean_solidity_stats=regionprops(labelled_cyto,labelled_by_solidity,'MeanIntensity');
   newResults.Solidity = cat(1,mean_solidity_stats.MeanIntensity);
 
@@ -116,7 +116,6 @@ function newResults = NewMeasurements(cyto, nuc, reporter, labelled_cyto, folder
 
   % EXPERIMANTAL CLASS (control, torin, or torin wash)
   if or(strfind(char(folder),'\ctl'), strfind(char(folder),'\Control'))
-  if strfind(char(folder), '2nd image set')
     experimental_class = 'Control'
   elseif strfind(char(folder),'\Torin_wash')
     experimental_class = 'Wash'
@@ -135,7 +134,8 @@ function newResults = NewMeasurements(cyto, nuc, reporter, labelled_cyto, folder
   % different islet centers but this isn't implemented
   islet_center = [size(cyto,1)/2 size(cyto,2)/2]; % islets are centered in frame
   centroids = newResults.Centroid(:,1:2);
-  centroids = centroids - islet_center;
+  centroids(:,1) = centroids(:,1) - islet_center(1);
+  centroids(:,2) = centroids(:,2) - islet_center(2);
   [theta,rho] = cart2pol(centroids(:,2),centroids(:,1));
   newResults.DistToCenter = rho;
  

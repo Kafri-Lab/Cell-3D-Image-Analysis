@@ -7,5 +7,5 @@ function zstack_out = NormalizeZ(zstack_in, percentile)
   for i = 1:size(zstack_in,3)
     zstack_out(:,:,i) = zstack_in(:,:,i) ./ prctile_stack(i);
   end
-  % figure('name','zstack', 'NumberTitle','off');imshow3D(zstack,[])
+  % figure('name','zstack', 'NumberTitle','off');imshow3Dfull(zstack,[])
 end

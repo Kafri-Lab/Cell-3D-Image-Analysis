@@ -26,7 +26,7 @@ function [cyto, varargout] = AutoCrop(cyto, varargin)
   zmin = ceil(boundingbox(3));
   zmax = ceil(boundingbox(3)) + ceil(boundingbox(6)) - 1;
   cyto=cyto(xmin:xmax,ymin:ymax,zmin:zmax); % crop
-  % figure('name','cyto_cropped','NumberTitle', 'off'); imshow3D(cyto,[]);
+  % figure('name','cyto_cropped','NumberTitle', 'off'); imshow3Dfull(cyto,[]);
 
   % Crop additional stacks, if any
   for k = 1:length(varargin)

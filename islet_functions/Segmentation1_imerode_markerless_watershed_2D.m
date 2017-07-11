@@ -3,24 +3,24 @@ function labelled_cyto = Segmentation1_imerode_markerless_watershed_2D(cyto)
 
   %% SMOOTH CYTO
   cyto_smooth = imgaussfilt3(cyto,[4 4 4]);
-  % figure('name','cyto_smooth','NumberTitle', 'off');imshow3D(cyto_smooth,[])
+  % figure('name','cyto_smooth','NumberTitle', 'off');imshow3Dfull(cyto_smooth,[])
 
   %% CREATE MASK OF ENTIRE ISLET
   % Threshold
   islet = cyto_smooth>0.01;
-  % figure('name','islet','NumberTitle', 'off');imshow3D(islet,[])
+  % figure('name','islet','NumberTitle', 'off');imshow3Dfull(islet,[])
   % Fill holes
   islet2 = zeros(size(cyto));
   for i = 1:size(cyto, 3)
       islet2(:,:,i) = imfill(islet(:,:,i), 'holes');
   end
-  % figure('name','islet2','NumberTitle', 'off');imshow3D(islet2,[])
+  % figure('name','islet2','NumberTitle', 'off');imshow3Dfull(islet2,[])
   % Shrink to make better fit
   islet3 = zeros(size(cyto));
   for i = 1:size(cyto, 3)
       islet3(:,:,i) = imerode(islet2(:,:,i), strel('disk',6));
   end
-  % figure('name','islet3','NumberTitle', 'off');imshow3D(islet3,[])
+  % figure('name','islet3','NumberTitle', 'off');imshow3Dfull(islet3,[])
   islet = islet3;
 
   %% ERODE (enhances edges)
@@ -28,7 +28,7 @@ function labelled_cyto = Segmentation1_imerode_markerless_watershed_2D(cyto)
   for i = 1:size(cyto, 3)
     cyto_erode(:,:,i) = imerode(cyto_smooth(:,:,i),strel('disk',5));
   end
-  % figure('name','imerode', 'NumberTitle','off'); imshow3D(cyto_erode);
+  % figure('name','imerode', 'NumberTitle','off'); imshow3Dfull(cyto_erode);
   
   %% WATERSHED
   cyto_erode(~islet)=-Inf; % KEEP ISLET AREA
@@ -38,7 +38,7 @@ function labelled_cyto = Segmentation1_imerode_markerless_watershed_2D(cyto)
   end
   labelled_cyto=labelled_cyto-1; % minus one from all ids which removes the object with id 1 which is the background and keeps the ids starting at 1 which is good for region props
   labelled_cyto(labelled_cyto==-1)=0; % remove object which is the background
-  % figure('name','cyto_watershed', 'NumberTitle','off'); imshow3D(labelled_cyto);
+  % figure('name','cyto_watershed', 'NumberTitle','off'); imshow3Dfull(labelled_cyto);
 
   %% DEBUG
   % cyto_overlay = zeros(size(cyto, 1), size(cyto, 2), size(cyto, 3), 3);
@@ -62,5 +62,5 @@ function labelled_cyto = Segmentation1_imerode_markerless_watershed_2D(cyto)
   %   labelled_cyto2(:,:,i) = labelled_cyto(:,:,i) + last_z_max_matrix;
   % end
   % labelled_cyto = labelled_cyto2;
-  % figure('name','labelled_cyto2', 'NumberTitle','off'); imshow3D(labelled_cyto);
+  % figure('name','labelled_cyto2', 'NumberTitle','off'); imshow3Dfull(labelled_cyto);
 end

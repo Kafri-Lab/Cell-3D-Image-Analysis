@@ -7,14 +7,14 @@ addpath 'Matlab function library'
 disp('Loading image...')
 zpic_DAPI = im3dread(inpath, '*.tif', 1); %Blue channel: DAPI
 zcount = size(zpic_DAPI, 3);
-% figure('name','nuc','NumberTitle', 'off');imshow3D(zpic_DAPI,[])
+% figure('name','nuc','NumberTitle', 'off');imshow3Dfull(zpic_DAPI,[])
 
 %% LOAD CYTO IMAGES
 % tiff images with 3 channels: e-cadherin, protein marker and pdx1
 disp('Loading image...')
 zpic_ECad = im3dread(inpath, '*.tif', 2); %Red channel: e-cadherin
 imcnt = size(zpic_ECad, 3);
-% figure('name','cyto','NumberTitle', 'off');imshow3D(zpic_ECad,[])
+% figure('name','cyto','NumberTitle', 'off');imshow3Dfull(zpic_ECad,[])
 
 %% AUTO-CROP CYTO
 padding = 30; % amount of padding around object to keep
@@ -43,12 +43,12 @@ zmin = ceil(boundingbox(3));
 zmax = ceil(boundingbox(3)) + ceil(boundingbox(6)) - 1;
 zpic_cyto=zpic_ECad(xmin:xmax,ymin:ymax,zmin:zmax); % crop
 zcount = size(zpic_cyto, 3);
-% figure('name','cyto_cropped','NumberTitle', 'off');imshow3D(zpic_cyto,[])
+% figure('name','cyto_cropped','NumberTitle', 'off');imshow3Dfull(zpic_cyto,[])
 
 %% CROP NUC
 zpic_nuc=zpic_DAPI(xmin:xmax,ymin:ymax,zmin:zmax); % crop
 zcount = size(zpic_nuc, 3);
-% figure('name','nuc_cropped','NumberTitle', 'off');imshow3D(zpic_nuc,[])
+% figure('name','nuc_cropped','NumberTitle', 'off');imshow3Dfull(zpic_nuc,[])
 
 %% NORMALIZE NUC BRIGHTNESS IN Z-DIMENSION
 %  Apply to each z-slice a division of the 90th percentile of the z-slice
@@ -73,12 +73,12 @@ end
 for i = 1:zcount
   im_norm(:,:,i) = zpic_cyto(:,:,i) ./ Pcs(i);
 end
-% figure('name','smooth', 'NumberTitle','off');imshow3D(im_norm,[])
+% figure('name','smooth', 'NumberTitle','off');imshow3Dfull(im_norm,[])
 
 %% THRESHOLD NUC
 thr=0.4;
 BW_Nuc=nuc_norm>thr;
-% figure('name','thresh','NumberTitle', 'off');imshow3D(BW_Nuc,[])
+% figure('name','thresh','NumberTitle', 'off');imshow3Dfull(BW_Nuc,[])
 
 %% findings LabeledSeeds Ran
 SmoothedIm = imgaussfilt3(nuc_norm,[6 6 2]);

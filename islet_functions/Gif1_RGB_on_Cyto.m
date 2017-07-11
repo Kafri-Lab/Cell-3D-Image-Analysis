@@ -1,5 +1,4 @@
-function Gif1_RGB_on_Cyto(ResultsTable)
-  inpath = '\\carbon.research.sickkids.ca\rkafri\YuvalDor\mouse islet z-stacks\images\';
+function Gif1_RGB_on_Cyto(ResultsTable, inpath)
   % Save an RGB segmentation overlay image for each stack
 
   folders = unique(ResultsTable.Folder);

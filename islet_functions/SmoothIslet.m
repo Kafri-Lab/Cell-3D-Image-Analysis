@@ -6,5 +6,5 @@ function cyto_smooth = SmoothIslet(cyto, folder)
   else
     error('Error: did not recognized folder: %s', folder)
   end
-  %figure('name','cyto_smooth','NumberTitle', 'off');imshow3D(cyto_smooth,[])
+  %figure('name','cyto_smooth','NumberTitle', 'off');imshow3Dfull(cyto_smooth,[])
 end

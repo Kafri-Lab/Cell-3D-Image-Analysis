@@ -1,6 +1,7 @@
 set(0,'DefaultFigureWindowStyle','docked')
-addpath '\\carbon.research.sickkids.ca\rkafri\YuvalDor\mouse islet z-stacks\code\islet_functions'
-inpath = '\\carbon.research.sickkids.ca\rkafri\YuvalDor\mouse islet z-stacks\images\';
+addpath 'islet_functions'
+addpath 'islet_functions\export_fig'
+inpath = 'D:\SickKids\YuvalDor\mouse islet z-stacks\images\';
 
 folders = { ...
 % '3rd image set\Whole_mount_Islets_with_Torin_Cy5pdx_cy3E-cad_DAPI_080317\Control\0003\' ...
@@ -53,7 +54,7 @@ for f=1:length(folders)
   cyto_norm = NormalizeZ(cyto, 90);
   nuc_norm = NormalizeZ(nuc, 90);
   pdx1_norm = NormalizeZ(pdx1, 90);
-  % figure('name','ECad','NumberTitle', 'off'); imshow3D(cyto_norm,[]);
+  % figure('name','ECad','NumberTitle', 'off'); imshow3Dfull(cyto_norm,[]);
 
   % SMOOTH
   cyto_smooth = SmoothIslet(cyto_norm, folder);
@@ -79,6 +80,7 @@ for f=1:length(folders)
 end
 
 save('ResultsTable.mat', 'ResultsTable');
+save('AllVars.mat');
 
 
 load('ResultsTable.mat');
@@ -158,7 +160,7 @@ set(gca,'FontSize',19,'XTickLabel',unique(subsetTable.Experiment))
 
 
 %% SAVE GIFS TO DISK
-Gif1_RGB_on_Cyto(subsetTable);
+Gif1_RGB_on_Cyto(subsetTable, inpath);
 
 %% PLOTTING 2D vs 3D
 %PlotBarChart2Dvs3D(ResultsTable2D, ResultsTable3D); 
