@@ -143,7 +143,7 @@ ylabel('Cell Area (pixel count)', 'FontSize', 21);
 for i=1:length(Means)
   text(i+0.06,Means(i)+30,int2str(Means(i)),'FontSize',20);
 end
-set(gca,'FontSize',19,'XTickLabel',unique(subsetTable.Stack))
+set(gca,'FontSize',19,'XTickLabel',unique(subsetTable.Stack),'stable')
 
 % Bar chart (experimental classes)
 Means = grpstats(subsetTable.CellSize,subsetTable.Experiment,'mean');
@@ -157,7 +157,7 @@ ylabel('Cell Area (pixel count)', 'FontSize', 21);
 for i=1:length(Means)
   text(i+0.06,Means(i)+30,int2str(Means(i)),'FontSize',20);
 end
-set(gca,'FontSize',19,'XTickLabel',unique(subsetTable.Experiment))
+set(gca,'FontSize',19,'XTickLabel',unique(subsetTable.Experiment),'stable')
 
 
 %% SAVE GIFS TO DISK
